@@ -1,0 +1,6 @@
+- mpeg-dash
+- akamai auth
+- manual recorder custom file name
+- bandwidth control (per-app & total)
+- DNS round-robin url
+- multiple streams per connection
