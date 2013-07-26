@@ -67,6 +67,7 @@ my @modules = (
     [http_postgres => 'ngx_postgres', 'disabled'],
     [http_srcache => 'srcache-nginx-module'],
     [http_lua => 'ngx_lua'],
+    [rtmp => 'nginx-rtmp-module'],
     [http_headers_more => 'headers-more-nginx-module'],
     [http_array_var => 'array-var-nginx-module'],
     [http_memc => 'memc-nginx-module'],
