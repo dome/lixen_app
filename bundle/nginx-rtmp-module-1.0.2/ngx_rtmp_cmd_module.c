@@ -203,11 +203,11 @@ ngx_rtmp_cmd_connect(ngx_rtmp_session_t *s, ngx_rtmp_connect_t *v)
     static double               capabilities = NGX_RTMP_CAPABILITIES;
     static double               object_encoding = 0;
 
-    u_char                     *level_status  = "status";
-    u_char                     *level_error   = "error";
-    u_char                     *code_success  = "NetConnection.Connect.Success";
-    u_char                     *code_rejected = "NetConnection.Connect.Rejected";
-    u_char                     *desc_success  = "Connection succeeded.";
+    u_char                     *level_status  = (unsigned char *)"status";
+    u_char                     *level_error   = (unsigned char *)"error";
+    u_char                     *code_success  = (unsigned char *)"NetConnection.Connect.Success";
+    u_char                     *code_rejected = (unsigned char *)"NetConnection.Connect.Rejected";
+    u_char                     *desc_success  = (unsigned char *)"Connection succeeded.";
 
     ngx_int_t                   ret = NGX_OK;
     ngx_rtmp_authen_ctx_t      *authen_ctx;
@@ -247,7 +247,7 @@ ngx_rtmp_cmd_connect(ngx_rtmp_session_t *s, ngx_rtmp_connect_t *v)
         out_inf[0].data = level_error;
         out_inf[1].data = code_rejected;
         out_inf[2].data = authen_ctx->conn_desc.len > 0 ?
-                authen_ctx->conn_desc.data : "[ AccessManager.Reject ]";
+                authen_ctx->conn_desc.data : (unsigned char *)"[ AccessManager.Reject ]";
         ret = NGX_ERROR;
     } else {
         out_inf[0].data = level_status;

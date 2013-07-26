@@ -104,7 +104,7 @@ ngx_rtmp_authen_connect_create(ngx_rtmp_session_t *s, void *arg,
         ngx_pool_t *pool)
 {
     ngx_rtmp_authen_app_conf_t    *aacf;
-    ngx_chain_t                   *hl, *cl, *pl;
+    ngx_chain_t                   *cl, *pl;
     ngx_buf_t                     *b;
     ngx_str_t                     *addr_text;
 
@@ -142,21 +142,10 @@ ngx_rtmp_authen_connect_create(ngx_rtmp_session_t *s, void *arg,
     b->last = (u_char *)ngx_escape_uri(b->last, addr_text->data,
             addr_text->len, 0);
 
-    /* HTTP header */
-    hl = ngx_rtmp_netcall_http_format_header(NGX_RTMP_NETCALL_HTTP_POST,
-            &aacf->connect_url->uri, &aacf->connect_url->host,
-            pool, cl->buf->last - cl->buf->pos + (pl->buf->last - pl->buf->pos),
-            &ngx_rtmp_authen_urlencoded);
+    return ngx_rtmp_netcall_http_format_request(NGX_RTMP_NETCALL_HTTP_GET,
+                                                &aacf->connect_url->host, &aacf->connect_url->uri,
+                                                NULL, NULL, pool, &ngx_rtmp_authen_urlencoded);
 
-    if (hl == NULL) {
-        return NULL;
-    }
-
-    hl->next = cl;
-    cl->next = pl;
-    pl->next = NULL;
-
-    return hl;
 }
 
 
@@ -467,7 +456,7 @@ ngx_rtmp_authen_connect(ngx_rtmp_session_t *s, ngx_rtmp_connect_t *v)
 
     cscf = ngx_rtmp_get_module_srv_conf(s, ngx_rtmp_core_module);
 
-    p = ngx_strchr (v->app, '?');
+    p = (unsigned char *)ngx_strchr (v->app, '?');
     if (p) {
         *p = 0;
     }
