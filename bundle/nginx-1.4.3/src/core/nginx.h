@@ -11,7 +11,7 @@
 
 #define nginx_version      1004003
 #define NGINX_VERSION      "1.4.3"
-#define NGINX_VER          "nginx/" NGINX_VERSION
+#define NGINX_VER          "lixen_app/" NGINX_VERSION
 
 #define NGINX_VAR          "NGINX"
 #define NGX_OLDPID_EXT     ".oldbin"
